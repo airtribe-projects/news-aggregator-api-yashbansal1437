@@ -38,4 +38,4 @@ function verifyUser(req, res, next) {
   }
 }
 
-module.exports = { verifyUser };
+module.exports = { verifyUser, validateRegister, validateLogin, validatePreferencesUpdate };

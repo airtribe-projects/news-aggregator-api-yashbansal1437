@@ -1,9 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const {registerUser, loginUser, getUserPreferences, updateUserPreferences} = require('../controllers/usersControllers');
+const {
+    registerUser, 
+    loginUser, 
+    getUserPreferences,
+    updateUserPreferences
+} = require('../controllers/usersControllers');
 const {verifyUser} = require('../middleware/authMiddleware');
+const {
+  validateRegister,
+  validateLogin,
+  validatePreferencesUpdate
+} = require('../middleware/validationMiddleware');
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', validateRegister, async (req, res) => {
     const user = {...req.body};
     try {
         const result = await registerUser(user);
@@ -15,7 +25,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     const user = {...req.body};
     try {
         const result = await loginUser(user);
@@ -46,7 +56,7 @@ router.get('/preferences', verifyUser, async (req, res) => {
     }
 });
 
-router.put('/preferences', verifyUser, async (req, res) => {
+router.put('/preferences', verifyUser, validatePreferencesUpdate, async (req, res) => {
     const username = req.user.email;
     const preferences = req.body.preferences;
     if (!username || !preferences) {

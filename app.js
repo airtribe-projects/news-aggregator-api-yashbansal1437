@@ -1,5 +1,6 @@
 const express = require('express');
 const usersRouter = require('./routes/usersRoute');
+const newsRouter = require('./routes/newsRoute');
 
 const app = express();
 
@@ -11,5 +12,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', usersRouter);
+app.use('/news', newsRouter); 
 
 module.exports = app;
