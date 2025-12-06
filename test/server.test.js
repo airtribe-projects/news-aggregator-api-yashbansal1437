@@ -70,6 +70,7 @@ tap.test('PUT /users/preferences', async (t) => {
         preferences: ['movies', 'comics', 'games']
     });
     t.equal(response.status, 200);
+    t.end();
 });
 
 tap.test('Check PUT /users/preferences', async (t) => {
